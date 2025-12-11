@@ -1,0 +1,47 @@
+@use "./../../styles/_mixin.scss" as *;
+@use "./../../styles/_variables.scss" as *; 
+@use "./../../styles/_functions.scss" as *;
+
+.header {
+  @include horizontal-flex;
+  justify-content: space-between;
+  width: 90vw;
+  border: 1px solid color("secondary");
+  border-radius: 0.5rem;
+  padding: 5px 20px;
+  margin-top: 5vh;
+  position: absolute;
+  top: 0;             
+  z-index: 11;
+  pointer-events: auto;
+
+  h3 {
+    color: color("secondary");
+    margin-left: 5px;
+    font-weight: 600;
+  }
+}
+
+
+
+.logo {
+    cursor: pointer;
+    @include horizontal-flex;
+    align-items: baseline;
+}
+
+.logoIcon{
+    fill: color( "secondary");
+}
+
+.linkContainer{
+    @include horizontal-flex;
+    justify-content: space-around;
+    gap: 150px;
+    margin-right: 10%;
+    h4{
+        color: color("secondary");
+        cursor: pointer;
+        font-weight: 500
+    }
+}

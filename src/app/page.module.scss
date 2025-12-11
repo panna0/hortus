@@ -1,0 +1,91 @@
+@use "./../styles/_mixin.scss" as *;
+@use "./../styles/_variables.scss" as *; 
+@use "./../styles/_functions.scss" as *;
+
+
+.container {
+  @include vertical-flex;
+  width: 100vw;
+  height: 100vh;
+  background-color: color("grass");
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: visible;
+}
+
+.grass {
+  background-image: url(../../public/grassBackground.png);
+  background-size: cover;
+  background-position: center bottom;
+  @include vertical-flex;
+  height: 90vh;
+  top: 0;
+  width: 100vw;
+  gap: 3vh;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  position: relative;
+  transform: translateZ(0) translateY(0);
+}
+
+.icon {
+  fill: color("grass");
+}
+
+.buttonsContainer{
+  @include horizontal-flex;
+  gap: 1rem;
+}
+
+.ground {
+  width: 100vw;
+  height: 80vh;
+  background-image: url(../../public/groundBackground1.png);
+  background-size: cover;
+  position: absolute;          /* lo sovrapponiamo */
+  top: 90vh;                  /* parte subito dopo grass */
+  transform: translateY(-10vh); /* spostalo su e indietro */
+  z-index: 9;                  /* dietro al prato */
+}
+
+.banner{
+  position: absolute;
+  top: 160vh;
+  width: 100vw;
+  z-index: 11;
+}
+.ground2 {
+  width: 100vw;
+  height: 100vh;
+  background-image: url(../../public/groundBackground2.png);
+  background-size: cover;
+  position: absolute;          
+  top: 180vh;                  
+  transform: translateY(-10vh); 
+  z-index: 9;   
+  @include vertical-flex;  
+  justify-content: initial; 
+  gap: 8vh;
+  align-items: center;     
+         
+}
+
+
+.iconCardContainer{
+  @include horizontal-flex;
+  width: 70%;
+  justify-content: space-between;
+  height: fit-content;
+}
+
+.sectionTitle{
+  color: color("secondary");
+    font-size: 4rem;
+    font-weight: 900;
+    margin-top: 20vh;
+
+    span{
+      color: color("primary");
+    }
+}

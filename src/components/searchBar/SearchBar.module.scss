@@ -1,0 +1,46 @@
+@use "./../../styles/_mixin.scss" as *;
+@use "./../../styles/_variables.scss" as *; 
+@use "./../../styles/_functions.scss" as *;
+
+.searchBarContainer{
+    @include horizontal-flex;
+    width: 80%;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid color("secondary");
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: color("lightBackground");
+}
+
+.lensIcon{
+    fill: color("ground");
+}
+
+.searchBar{
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 1.2rem;
+    background-color: transparent;
+    color: color("secondary");
+    ::placeholder{
+        color: color("secondary");
+        
+    }
+}
+
+input::placeholder {
+    font-style: italic;
+    color: color("secondary");
+    opacity: 0.7;
+}
+
+.searchButton{
+    background-color: color("secondary");
+    color: color("grass");
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}

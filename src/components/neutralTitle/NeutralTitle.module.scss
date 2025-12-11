@@ -1,0 +1,24 @@
+@use "./../../styles/_mixin.scss" as *;
+@use "./../../styles/_variables.scss" as *; 
+@use "./../../styles/_functions.scss" as *;
+
+
+.titleContainer {
+  @include horizontal-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  h1 {
+    color: color("secondary");
+    font-size: 5rem;
+    font-weight: 900;
+    margin: 0;
+
+    span{
+         color: color("primary");
+    }
+    }
+  }
+
+  
+

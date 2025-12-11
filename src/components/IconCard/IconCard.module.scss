@@ -1,0 +1,113 @@
+@use "./../../styles/_mixin.scss" as *;
+@use "./../../styles/_variables.scss" as *; 
+@use "./../../styles/_functions.scss" as *;
+
+.card {
+  display: flex;
+  flex-direction: column;
+  width: 20vw;
+  min-width: 250px;
+  height: 50vh;
+  border: 1px solid color("secondary");
+  border-radius: 0.5rem;
+  background-color: transparent;
+  padding: 1vw;
+  justify-content: space-between;
+  align-items: center
+  
+}
+
+.iconTextContainer{
+    @include vertical-flex;
+    justify-content: center;
+    align-items: center;
+    width: 18vw;
+    
+    height: 80%;
+    border-radius: 0.5rem;
+    border: 1px solid color("secondary");
+    background-color: #7D5D45;
+    
+}
+
+.iconTitleText{
+    width: 80%;
+    height: 80%;
+    @include vertical-flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.textContainer {
+  width: 18vw;
+  min-width: 250px;
+  align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+
+  h1{
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  p{
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: color( "secondary");
+    width: 80%;
+    hyphens: none;
+    -webkit-hyphens: none; 
+    -moz-hyphens: none;   
+    -ms-hyphens: none;
+  }
+}
+
+.icon {
+  width: 5rem;
+  text-shadow: 0 0px 4px 0 rgba(0, 0, 0, 0.2), 0 0px 40px 0 #00ff336b;
+  filter: drop-shadow(0px 0px 15px color("primary"));
+  padding: 0.5rem;
+}
+
+@media screen and (max-width: 768px) {
+    .card {
+      flex-direction: row;     
+      width: 80%;            
+      height: 10vh;           
+      padding: 1rem;
+      align-items: center;
+      gap: 1rem;
+    }
+  
+    .icon {
+      width: 3rem;
+      padding: 0;
+      flex-shrink: 0;
+      order: -1;   /* 👈 l’icona va a sinistra */
+    }
+  
+    .textContainer {
+      flex: 1;
+      min-width: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      text-align: left;
+      margin-left: 1rem;
+  
+      h1 {
+        font-size: 1.2rem;
+        margin-bottom: 0.25rem;
+      }
+  
+      p {
+        font-size: 0.9rem;
+        line-height: 1.3;
+      }
+    }
+  }
+  

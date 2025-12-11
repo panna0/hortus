@@ -1,0 +1,11 @@
+@use "./../styles/_mixin.scss" as *;
+@use "./../styles/_variables.scss" as *; 
+@use "./../styles/_functions.scss" as *;
+
+
+
+.container{
+    @include vertical-flex;
+    width: 100vw;
+    align-items: center;
+}

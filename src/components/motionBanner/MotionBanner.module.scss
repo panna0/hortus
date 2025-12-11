@@ -1,0 +1,48 @@
+@use "./../../styles/_mixin.scss" as *;
+@use "./../../styles/_variables.scss" as *; 
+@use "./../../styles/_functions.scss" as *;
+
+.background {
+  overflow: hidden;
+  width: 100%;
+  background-color: color("lightGround");
+  border: 2px solid color("secondary");
+  border-right: none;
+  border-left: none;
+  padding: 20px 0;
+  z-index: 12;
+}
+
+.text {
+    @include horizontal-flex;
+    gap: 40px;
+  font-size: 5rem;
+  font-weight: 900;
+  color: color('secondary');
+  text-transform: uppercase;
+  letter-spacing: 5px;
+}
+
+.scrollingDiv {
+  display: inline-flex;
+  gap: 50px;
+  align-items: center;
+}
+
+
+@media screen and (max-width: 768px) {
+  .background {
+    padding: 10px 0;
+    border-width: 1px;
+    box-shadow: none;
+  }
+
+  .text {
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+  }
+
+  .scrollingDiv {
+    gap: 20px;
+  }
+}

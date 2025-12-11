@@ -1,0 +1,11 @@
+@use "./../../styles/_mixin.scss" as *;
+@use "./../../styles/_variables.scss" as *; 
+@use "./../../styles/_functions.scss" as *;
+
+.iconButton{
+    background-color: color("secondary");
+    color: color("grass");
+    padding: 5px 50px;
+    border: none;
+    border-radius: 0.5rem;
+}

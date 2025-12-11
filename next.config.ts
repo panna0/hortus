@@ -1,7 +1,32 @@
-import type { NextConfig } from "next";
+/** @type {import('next').NextConfig} */
+const nextConfig = {
 
-const nextConfig: NextConfig = {
-  /* config options here */
+  
+ 
+  webpack(config, { isServer }) { 
+    const fileLoaderRule = config.module.rules.find((rule) => rule.test?.test?.('.svg'));
+    if (fileLoaderRule) {
+        fileLoaderRule.exclude = /\.svg$/i;
+    }
+    config.module.rules.push({
+      test: /\.svg$/i,
+      issuer: /\.[jt]sx?$/,
+      use: [{ loader: '@svgr/webpack', options: { icon: true } }],
+    });
+    return config;
+  },
+
+ 
+  turbopack: {
+    rules: {
+     
+      '*.svg': {
+        loaders: ['@svgr/webpack'],
+        as: '*.js', 
+      },
+    },
+    
+  },
 };
 
-export default nextConfig;
+module.exports = nextConfig;

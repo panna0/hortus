@@ -1,0 +1,46 @@
+@use "./../../styles/_variables.scss" as *; 
+@use "./../../styles/_functions.scss" as *;
+
+
+.btn{
+    outline: none;
+    padding: 2vh;
+    border: none;
+    border-radius: 0.8rem;
+    
+    cursor: pointer;
+   
+    
+    font-weight: bold;
+    
+
+    &-primary{
+        background-color: color("primary");
+        color: color("grass");
+    }
+    
+    &-secondary{
+        background-color: color("secondary");
+        color: color("ground");
+        
+    }
+
+    &-small{
+       width: fit-content;
+    }
+
+    &-large{
+       width: 18vw;
+       border-radius: 0.5rem;
+       margin: 1rem 0;
+    }
+
+    &-rounded{
+        border-radius: 3rem;
+        height: 35px;
+        width: 35px;
+        padding: 0;
+        font-size: medium;
+        
+    }
+}

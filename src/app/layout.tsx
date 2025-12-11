@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Roboto } from "next/font/google";
 import "./globals.css";
+import NavBar from "@/components/navBar/NavBar";
+import style from "./layout.module.scss";
+import PlantProviderWrapper from "./PlantProviderWrapper";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const roboto = Roboto({
   subsets: ["latin"],
+  weight: ["300", "400", "900"], 
+  variable: "--font-roboto", 
 });
 
 export const metadata: Metadata = {
@@ -24,8 +24,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
+      <body className={roboto.variable}>
+        <PlantProviderWrapper>
+          <div className={style.container}>
+          <NavBar/>
+          
+            {children}
+
+          </div>
+        </PlantProviderWrapper>
       </body>
     </html>
   );
