@@ -4,10 +4,7 @@ import NeutralTitle from "../components/neutralTitle/NeutralTitle.jsx";
 import GameWindow from "../components/gameWindow/GameWindow.jsx";
 import IconButton from "../components/iconButton/IconButton.jsx";
 import MotionBanner from "../components/motionBanner/MotionBanner.jsx";
-import Sun from "../../public/pixelSun.svg";
-import Plant from "../../public/pixelPlant.svg";
-import Rain from "../../public/pixelRain.svg";
-import Snow from "../../public/pixelSnow.svg";
+
 import IconCard from "../components/IconCard/IconCard.jsx";
 import CardIcon1 from "../../public/cardIcon1.svg"
 import CardIcon2 from "../../public/cardIcon2.svg"
@@ -22,24 +19,7 @@ const LandingPage = () => {
           <div className={style.grass}>
             <NeutralTitle><h1>LET&apos;S GET <span>GROWING</span>!</h1></NeutralTitle>
             <GameWindow/>
-            <div className={style.buttonsContainer}>
-              <IconButton icon={<Sun
-                                className={style.icon}
-                                style={{ width: 20, height: 20 }}
-                            /> } />
-              <IconButton icon={<Plant
-                                className={style.icon}
-                                style={{ width: 20, height: 20 }}
-                            /> } />
-              <IconButton icon={<Rain
-                                className={style.icon}
-                                style={{ width: 20, height: 20 }}
-                            /> } />
-              <IconButton icon={<Snow
-                                className={style.icon}
-                                style={{ width: 20, height: 20 }}
-                            /> } />
-            </div>
+            
             
           </div>
           <div className={style.ground}>
