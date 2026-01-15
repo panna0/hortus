@@ -4,6 +4,8 @@ import "./globals.css";
 import NavBar from "@/components/navBar/NavBar";
 import style from "./layout.module.scss";
 import PlantProviderWrapper from "./PlantProviderWrapper";
+import HortusProviderWrapper from "./HortusProviderWrapper";
+
 
 
 const roboto = Roboto({
@@ -26,12 +28,14 @@ export default function RootLayout({
     <html lang="en">
       <body className={roboto.variable}>
         <PlantProviderWrapper>
-          <div className={style.container}>
-          <NavBar/>
-          
-            {children}
+          <HortusProviderWrapper>
+            <div className={style.container}>
+            <NavBar/>
+            
+              {children}
 
-          </div>
+            </div>
+          </HortusProviderWrapper>
         </PlantProviderWrapper>
       </body>
     </html>
