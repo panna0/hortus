@@ -1,7 +1,46 @@
+@use "../../styles/_variables.scss" as *; 
+@use "../../styles/_mixin.scss" as *;
+@use "../../styles/_functions.scss" as *;
+
 .plantListContainer{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
+    padding-bottom: 4rem; // Extra space at bottom
     width: 100%;  
-    
+}
+
+.loadingContainer {
+    width: 100%;
+    height: 50vh; // Occupy some vertical space
+    @include vertical-flex;
+    justify-content: center;
+    align-items: center;
+    color: color("secondary");
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    grid-column: 1 / -1; // Span all columns if inside grid, though here it's likely replacing the grid content
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(248, 236, 137, 0.3); // Secondary color transparent
+    border-radius: 50%;
+    border-top-color: color("secondary"); // Secondary color solid
+    animation: spin 1s ease-in-out infinite;
+    margin-bottom: 1.5rem;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.error {
+    color: #ff6b6b; // Or a variable if you have one for error
+    font-weight: bold;
+    text-align: center;
+    padding: 2rem;
+    grid-column: 1 / -1;
 }

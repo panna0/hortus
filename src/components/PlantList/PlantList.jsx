@@ -13,8 +13,14 @@ const PlantList = () => {
     fetchPlantList(1);
   }, []);
 
-  if (loading) return <p>Caricamento...</p>;
-  if (error) return <p>{error}</p>;
+  if (loading) return (
+    <div className={style.loadingContainer}>
+      <div className={style.spinner}></div>
+      <p>Loading Vivarium...</p>
+    </div>
+  );
+
+  if (error) return <p className={style.error}>{error}</p>;
 
   return (
     <div className={style.plantListContainer}> 
