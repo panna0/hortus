@@ -1,7 +1,7 @@
 "use client"; // 1. Obbligatorio per usare Context e Hooks
 
 import { useEffect, use } from 'react'; // 'use' è necessario in Next.js 15 per i params, altrimenti usa useParams
-import { usePlants } from '../../context/PlantContext'; // Assicurati che il percorso sia corretto
+import { usePlants } from '../../../context/PlantContext'; // Assicurati che il percorso sia corretto
 
 const Plant = ({ params }) => { 
   // 2. Sbustiamo i params. In Next.js 15 params è una Promise.
