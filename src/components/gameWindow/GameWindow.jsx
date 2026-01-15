@@ -8,19 +8,19 @@ import Plant from "../../../public/pixelPlant.svg";
 import Rain from "../../../public/pixelRain.svg";
 import Snow from "../../../public/pixelSnow.svg";
 
-// --- CONFIGURAZIONE COSTANTI (Globali al modulo) ---
+
 const TILE_WIDTH = 16;
 const TILE_HEIGHT = 32;
 const SPRITE_SCALE = 1.5;
 const BASE_SPEED = 0.25;
 
-const GROWTH_TICKS_PER_STAGE = 900;
+let GROWTH_TICKS_PER_STAGE = 900;
 const SEEK_GROWN_PROBABILITY = 0.03;
 const HARVEST_SPEED_MULTIPLIER = 1.6;
 const HARVEST_ARRIVAL_DIST = 2;
 const HARVEST_HITBOX_PADDING = 6;
 
-// --- CLASSI DEFINITE FUORI DAL COMPONENTE ---
+
 
 class CropType {
   constructor(name, stageImages) {
@@ -92,19 +92,16 @@ class Field {
   }
 }
 
-// --- COMPONENTE REACT ---
-
 const GameWindow = () => {
   const canvasRef = useRef(null);
-  const weatherRef = useRef("rainbow");
+  const weatherRef = useRef("");
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     let animationFrameId;
+    let bubbleTimer = null;
 
-    // --- ASSETS E INIT ---
-    // Carichiamo le immagini qui dentro per sicurezza (evita problemi SSR)
     const bg = new Image();
     bg.src = "/mappa_gioco.png"; 
 
@@ -134,7 +131,6 @@ const GameWindow = () => {
       new CropType("pumpkin", loadCropImagesFromFolder("pumpkin")),
     ];
 
-    // --- STATO DEL GIOCO LOCALE ---
     let x = 600;
     let y = 300;
     let direction = "down";
@@ -146,7 +142,7 @@ const GameWindow = () => {
     let sowingMode = false;
     let sowingIndex = 0;
 
-    // Inizializzazione Campi
+    // initialization fields
     let fields = [
       new Field(330, 300, 30, 30), new Field(330, 350, 30, 30),
       new Field(390, 300, 25, 25), new Field(390, 350, 25, 25),
@@ -163,7 +159,120 @@ const GameWindow = () => {
     ];
     fields.sort((a, b) => a.y - b.y || a.x - b.x);
 
-    // --- FUNZIONI LOGICHE ---
+    const bubbleMessages = [
+      "Benvenuto! Qui fuori il mondo corre veloce, ma dentro questo recinto il tempo lo decidono le radici. Rilassati, non c'è fretta!",
+      "Non serve avere il pollice verde, basta chiedere. Se una pianta ti preoccupa o non sai da dove iniziare, non disperare! Ci siamo noi!",
+      "Siamo felici di averti tra i nostri! Se ti va, ogni giovedì ti mandiamo un piccolo pensiero per ricordarti di respirare e coltivare la tua curiosità!"
+    ];
+
+    let bubbleIndex = 0;
+    let bubbleVisible = true;
+    const BUBBLE_DISPLAY_MS = 6200; // duration of each message in ms
+
+    // rect 
+    function roundRect(ctx, x, y, w, h, r) {
+      const radius = r || 6;
+      ctx.beginPath();
+      ctx.moveTo(x + radius, y);
+      ctx.arcTo(x + w, y, x + w, y + h, radius);
+      ctx.arcTo(x + w, y + h, x, y + h, radius);
+      ctx.arcTo(x, y + h, x, y, radius);
+      ctx.arcTo(x, y, x + w, y, radius);
+      ctx.closePath();
+    }
+
+    // text split
+    function wrapText(ctx, text, maxWidth) {
+      const words = text.split(" ");
+      const lines = [];
+      let line = "";
+
+      for (let n = 0; n < words.length; n++) {
+        const testLine = line ? line + " " + words[n] : words[n];
+        const metrics = ctx.measureText(testLine);
+        const testWidth = metrics.width;
+        if (testWidth > maxWidth && line) {
+          lines.push(line);
+          line = words[n];
+        } else {
+          line = testLine;
+        }
+      }
+      if (line) lines.push(line);
+      return lines;
+    }
+
+    // draw bubble
+    function drawBubble(ctx, text, px, py) {
+      if (!bubbleVisible || !text) return;
+
+      const padding = 10;
+      const maxTextWidth = 280; 
+      const fontSize = Math.round(10 * SPRITE_SCALE);
+      ctx.font = `${fontSize}px Roboto, sans-serif`;
+      ctx.textBaseline = "top";
+
+      const lines = wrapText(ctx, text, maxTextWidth);
+      const lineHeight = Math.round((fontSize + 4));
+      
+      let measuredWidth = 0;
+      lines.forEach(l => {
+        const w = ctx.measureText(l).width;
+        if (w > measuredWidth) measuredWidth = w;
+      });
+
+      const bubbleW = Math.min(maxTextWidth, measuredWidth) + padding * 2;
+      const bubbleH = lines.length * lineHeight + padding * 2;
+
+    
+      const spriteCenterOffsetX = (TILE_WIDTH * SPRITE_SCALE) / 2;
+      const bx = px + spriteCenterOffsetX - bubbleW / 2;
+      const by = py - bubbleH - 18; 
+
+      // Background
+      ctx.save();
+      ctx.fillStyle = "rgba(255,255,255,0.96)";
+      ctx.strokeStyle = "rgba(0,0,0,0.18)";
+      ctx.lineWidth = 1;
+      roundRect(ctx, bx, by, bubbleW, bubbleH, 10);
+      ctx.fill();
+      ctx.stroke();
+
+      // tail bubble direction
+      const tailX = px + spriteCenterOffsetX;
+      const tailY = by + bubbleH;
+      ctx.beginPath();
+      ctx.moveTo(tailX - 8, tailY);
+      ctx.lineTo(tailX + 8, tailY);
+      ctx.lineTo(tailX, tailY + 10);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.fillStyle = "#1f2933";
+      let textY = by + padding;
+      const textX = bx + padding;
+      for (let i = 0; i < lines.length; i++) {
+        ctx.fillText(lines[i], textX, textY);
+        textY += lineHeight;
+      }
+      ctx.restore();
+    }
+
+    function startBubbleSequence() {
+      bubbleIndex = 0;
+      bubbleVisible = true;
+      // it shows the 1st message immediately
+      bubbleTimer = setInterval(() => {
+        bubbleIndex++;
+        if (bubbleIndex >= bubbleMessages.length) {
+          clearInterval(bubbleTimer);
+          bubbleTimer = null;
+          bubbleVisible = false;
+        }
+      }, BUBBLE_DISPLAY_MS);
+    }
+
 
     function allFieldsEmpty() {
       return fields.every((f) => f.state === Field.STATES.EMPTY);
@@ -234,7 +343,6 @@ const GameWindow = () => {
       }
     }
 
-    // --- LOGICA METEO ---
     const rainDrops = [];
     const snowFlakes = [];
 
@@ -265,6 +373,7 @@ const GameWindow = () => {
       const weather = weatherRef.current; 
 
       if (weather === "rain") {
+
         for (const drop of rainDrops) {
           drop.y += drop.s;
           if (drop.y > canvas.height) {
@@ -302,15 +411,21 @@ const GameWindow = () => {
         ctx.restore();
         applyWeatherOverlay(weather);
       } else if (weather === "rainbow") {
+        GROWTH_TICKS_PER_STAGE = 900;
         drawRainbow();
+      }
+      else {
+        GROWTH_TICKS_PER_STAGE = 1300;
       }
     }
 
     function applyWeatherOverlay(currentWeather) {
       ctx.save();
       if (currentWeather === "rain") {
+        GROWTH_TICKS_PER_STAGE = 20000;
         ctx.fillStyle = "rgba(136, 136, 136, 0.29)";
       } else if (currentWeather === "snow") {
+        GROWTH_TICKS_PER_STAGE = 20000;
         ctx.fillStyle = "rgba(200, 200, 255, 0.2)";
       }
       ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -344,7 +459,6 @@ const GameWindow = () => {
       ctx.restore();
     }
 
-    // --- GAME LOOP ---
     function update() {
       moveTimer++;
       const nearestGrown = findNearestGrownField(x, y);
@@ -412,21 +526,22 @@ const GameWindow = () => {
       ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
       fields.forEach((f) => f.draw(ctx));
       
-      // Draw Borders
-     
-
-      // Draw Character
       ctx.drawImage(
         sprites[direction],
         frame * TILE_WIDTH, 0, TILE_WIDTH, TILE_HEIGHT,
         x, y, TILE_WIDTH * SPRITE_SCALE, TILE_HEIGHT * SPRITE_SCALE
       );
 
+      // draws bubble over character
+      if (bubbleVisible && bubbleIndex < bubbleMessages.length) {
+        drawBubble(ctx, bubbleMessages[bubbleIndex], x, y);
+      }
+
       checkWeather();
     }
 
-    // Avvio
     initWeather();
+    startBubbleSequence();
     const render = () => {
       update();
       draw();
@@ -436,6 +551,10 @@ const GameWindow = () => {
 
     return () => {
       cancelAnimationFrame(animationFrameId);
+      if (bubbleTimer) {
+        clearInterval(bubbleTimer);
+        bubbleTimer = null;
+      }
     };
   }, []); 
 
