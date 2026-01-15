@@ -33,10 +33,7 @@
   fill: color("grass");
 }
 
-.buttonsContainer{
-  @include horizontal-flex;
-  gap: 1rem;
-}
+
 
 .ground {
   width: 100vw;
@@ -88,4 +85,39 @@
     span{
       color: color("primary");
     }
+}
+
+.fullScreenLoader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff; // O il colore di sfondo del tuo sito
+  z-index: 9999;
+
+  p {
+    margin-top: 20px;
+    font-family: var(--font-roboto);
+    color: #9dbd36;
+    font-weight: bold;
+  }
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #9dbd36; // Colore verde del tuo brand
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
