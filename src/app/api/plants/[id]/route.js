@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import PlantApiManager from '../../../../services/PlantApiManager'; // Aggiorna il percorso
 
 export async function GET(request, { params }) {
-  const { id } = params; // L'ID dalla URL (es. /api/plants/123)
+  const { id } = await params; // L'ID dalla URL (es. /api/plants/123)
 
   if (!id) {
     return NextResponse.json({ message: 'ID mancante' }, { status: 400 });
