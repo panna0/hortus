@@ -69,7 +69,12 @@ const LandingPage = () => {
         <NeutralTitle><h1>LET&apos;S GET <span>{news}</span>!</h1></NeutralTitle>
         <GameWindow/>
       </div>
-      <div className={style.ground} style={{backgroundImage: `url(${backgrounds.bg2})`}}></div>
+      <div className={style.ground} style={{backgroundImage: `url(${backgrounds.bg2})`}}>
+          <div className={style.quoteContainer}>
+              <blockquote>To plant a garden is to believe in tomorrow.</blockquote>
+              <cite>Audrey Hepburn</cite>
+          </div>
+      </div>
       <div className={style.banner}>
         <MotionBanner />
       </div>
