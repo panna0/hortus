@@ -24,8 +24,8 @@ const NavBar = ({ url = '/' }) => {
             </Link>
              <div className={style.linkContainer}>
                           <MotionLink href="/vivarium"> <h4>Vivarium</h4> </MotionLink>
-                          <MotionLink href="/about"> <h4>GreenAi</h4> </MotionLink>
-                          <MotionLink href="/contact"> <h4>About</h4> </MotionLink>   
+                          <MotionLink href="/greenai"> <h4>GreenAi</h4> </MotionLink>
+                          <MotionLink href="/about"> <h4>About</h4> </MotionLink>   
                 </div>
         </header>
      
