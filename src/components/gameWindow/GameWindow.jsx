@@ -309,7 +309,7 @@ const GameWindow = () => {
     function applyWeatherOverlay(currentWeather) {
       ctx.save();
       if (currentWeather === "rain") {
-        ctx.fillStyle = "rgba(19, 19, 19, 0.69)";
+        ctx.fillStyle = "rgba(136, 136, 136, 0.29)";
       } else if (currentWeather === "snow") {
         ctx.fillStyle = "rgba(200, 200, 255, 0.2)";
       }
