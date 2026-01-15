@@ -1,6 +1,9 @@
 "use client"; // 1. Obbligatorio per usare Context e Hooks
 
 import { useEffect, use } from 'react'; // 'use' è necessario in Next.js 15 per i params, altrimenti usa useParams
+import React from 'react';
+import Link from 'next/link';
+import style from './page.module.scss';
 import { usePlants } from '../../../context/PlantContext'; // Assicurati che il percorso sia corretto
 
 const Plant = ({ params }) => { 
@@ -16,40 +19,61 @@ const Plant = ({ params }) => {
     if (id) {
       fetchPlantDetails(id);
     }
-    // Nota: Aggiungiamo fetchPlantDetails alle dipendenze per correttezza, 
-    // ma assicurati che la funzione in Context sia stabile (es. usando useCallback) o ignoralo.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   // 5. Gestione degli stati di caricamento ed errore
-  if (loading) return <div className="p-4">Caricamento dettagli pianta...</div>;
-  if (error) return <div className="p-4 text-red-500">Errore: {error}</div>;
+  if (loading) return (
+    <div className={style.loading}>
+        <div className={style.spinner}></div>
+        <p>Loading Plant Details...</p>
+    </div>
+  );
+  if (error) return <div className={style.error}>Errore: {error}</div>;
   
   // Se non abbiamo ancora i dettagli (es. primo render prima del fetch)
   if (!plantDetails) return null;
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">{plantDetails.common_name || plantDetails.scientific_name}</h1>
-      
-      {/* Esempio di visualizzazione dati */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {plantDetails.image_url && (
-            <img 
-              src={plantDetails.image_url} 
-              alt={plantDetails.common_name} 
-              className="rounded-lg shadow-md max-w-full h-auto"
-            />
-        )}
+    <div className={style.plantPage}>
+      <Link href="/vivarium" className={style.backButton}>
+         ← Back
+      </Link>
+
+      <div className={style.contentWrapper}>
+        <div className={style.imageSection}>
+          {plantDetails.image_url ? (
+              <img 
+                src={plantDetails.image_url} 
+                alt={plantDetails.common_name} 
+              />
+          ) : (
+            <div style={{width: '400px', height: '400px', backgroundColor: 'rgba(255,255,255,0.1)', border: '6px solid #F8EC89', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#F8EC89'}}>
+               No Image
+            </div>
+          )}
+        </div>
         
-        <div>
-          <h2 className="text-xl font-semibold">Dettagli</h2>
-          <ul className="list-disc pl-5 mt-2">
-             <li><strong>Nome Scientifico:</strong> {plantDetails.scientific_name}</li>
-             <li><strong>Famiglia:</strong> {plantDetails.family}</li>
-             <li><strong>Genere:</strong> {plantDetails.genus}</li>
-             {/* Aggiungi altri campi restituiti da Trefle */}
-          </ul>
+        <div className={style.infoSection}>
+            <div className={style.header}>
+                <h1>{plantDetails.common_name || "Unknown Plant"}</h1>
+                <p className={style.scientificName}>{plantDetails.scientific_name}</p>
+            </div>
+
+            <div className={style.statsGrid}>
+                <div className={style.statItem}>
+                    <h3>Family</h3>
+                    <p>{plantDetails.family?.name || (typeof plantDetails.family === 'string' ? plantDetails.family : 'N/A')}</p>
+                </div>
+                <div className={style.statItem}>
+                    <h3>Genus</h3>
+                    <p>{plantDetails.genus?.name || (typeof plantDetails.genus === 'string' ? plantDetails.genus : 'N/A')}</p>
+                </div>
+                <div className={style.statItem}>
+                    <h3>Year</h3>
+                    <p>{plantDetails.year || 'N/A'}</p>
+                </div>
+                 {/* Altri dati se necessari */}
+            </div>
         </div>
       </div>
     </div>
