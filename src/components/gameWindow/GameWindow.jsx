@@ -554,7 +554,7 @@ const GameWindow = (colors) => {
     (async () => {
       const apiUrl = "https://hortus-back.onrender.com/api/notizie/world";
       try {
-        const data = await fetchAnalysis(apiUrl, { timeout: 12000 });
+        const data = await fetchAnalysis(apiUrl, { timeout: 30000 });
         if (
           data?.hortus_active === true &&
           Array.isArray(data?.ai_analysis?.cryptic_thoughts) &&
