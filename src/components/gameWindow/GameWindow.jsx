@@ -1,13 +1,13 @@
-'use client'; 
+'use client';
 
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import style from "./GameWindow.module.scss";
 import IconButton from "../iconButton/IconButton.jsx";
 import Sun from "../../../public/pixelSun.svg";
 import Plant from "../../../public/pixelPlant.svg";
 import Rain from "../../../public/pixelRain.svg";
 import Snow from "../../../public/pixelSnow.svg";
-
+import { fetchAnalysis } from "./ApiManager.js";
 
 const TILE_WIDTH = 16;
 const TILE_HEIGHT = 32;
@@ -19,8 +19,6 @@ const SEEK_GROWN_PROBABILITY = 0.03;
 const HARVEST_SPEED_MULTIPLIER = 1.6;
 const HARVEST_ARRIVAL_DIST = 2;
 const HARVEST_HITBOX_PADDING = 6;
-
-
 
 class CropType {
   constructor(name, stageImages) {
@@ -92,7 +90,7 @@ class Field {
   }
 }
 
-const GameWindow = ({ colors }) => {
+const GameWindow = (colors) => {
   const canvasRef = useRef(null);
   const weatherRef = useRef("");
 
@@ -103,7 +101,7 @@ const GameWindow = ({ colors }) => {
     let bubbleTimer = null;
 
     const bg = new Image();
-    bg.src = "/mappa_gioco.png"; 
+    bg.src = "/mappa_gioco.png";
 
     const sprites = {
       down: new Image(),
@@ -159,7 +157,7 @@ const GameWindow = ({ colors }) => {
     ];
     fields.sort((a, b) => a.y - b.y || a.x - b.x);
 
-    const bubbleMessages = [
+    let bubbleMessages = [
       "Benvenuto! Qui fuori il mondo corre veloce, ma dentro questo recinto il tempo lo decidono le radici. Rilassati, non c'è fretta!",
       "Non serve avere il pollice verde, basta chiedere. Se una pianta ti preoccupa o non sai da dove iniziare, non disperare! Ci siamo noi!",
       "Siamo felici di averti tra i nostri! Se ti va, ogni giovedì ti mandiamo un piccolo pensiero per ricordarti di respirare e coltivare la tua curiosità!"
@@ -167,9 +165,8 @@ const GameWindow = ({ colors }) => {
 
     let bubbleIndex = 0;
     let bubbleVisible = true;
-    const BUBBLE_DISPLAY_MS = 6200; // duration of each message in ms
-
-    // rect 
+    const BUBBLE_DISPLAY_MS = 6200; 
+ 
     function roundRect(ctx, x, y, w, h, r) {
       const radius = r || 6;
       ctx.beginPath();
@@ -224,7 +221,6 @@ const GameWindow = ({ colors }) => {
       const bubbleW = Math.min(maxTextWidth, measuredWidth) + padding * 2;
       const bubbleH = lines.length * lineHeight + padding * 2;
 
-    
       const spriteCenterOffsetX = (TILE_WIDTH * SPRITE_SCALE) / 2;
       const bx = px + spriteCenterOffsetX - bubbleW / 2;
       const by = py - bubbleH - 18; 
@@ -262,7 +258,12 @@ const GameWindow = ({ colors }) => {
     function startBubbleSequence() {
       bubbleIndex = 0;
       bubbleVisible = true;
-      // it shows the 1st message immediately
+      // clear eventuale timer precedente
+      if (bubbleTimer) {
+        clearInterval(bubbleTimer);
+        bubbleTimer = null;
+      }
+      // mostra il primo messaggio immediatamente e avvia l'intervallo per quelli successivi
       bubbleTimer = setInterval(() => {
         bubbleIndex++;
         if (bubbleIndex >= bubbleMessages.length) {
@@ -272,7 +273,6 @@ const GameWindow = ({ colors }) => {
         }
       }, BUBBLE_DISPLAY_MS);
     }
-
 
     function allFieldsEmpty() {
       return fields.every((f) => f.state === Field.STATES.EMPTY);
@@ -347,9 +347,9 @@ const GameWindow = ({ colors }) => {
     const snowFlakes = [];
 
     function initWeather() {
-        rainDrops.length = 0;
-        snowFlakes.length = 0;
-        
+      rainDrops.length = 0;
+      snowFlakes.length = 0;
+
       for (let i = 0; i < 120; i++) {
         rainDrops.push({
           x: Math.random() * canvas.width,
@@ -370,10 +370,9 @@ const GameWindow = ({ colors }) => {
     }
 
     function checkWeather() {
-      const weather = weatherRef.current; 
+      const weather = weatherRef.current;
 
       if (weather === "rain") {
-
         for (const drop of rainDrops) {
           drop.y += drop.s;
           if (drop.y > canvas.height) {
@@ -413,8 +412,7 @@ const GameWindow = ({ colors }) => {
       } else if (weather === "rainbow") {
         GROWTH_TICKS_PER_STAGE = 900;
         drawRainbow();
-      }
-      else {
+      } else {
         GROWTH_TICKS_PER_STAGE = 1300;
       }
     }
@@ -540,14 +538,41 @@ const GameWindow = ({ colors }) => {
       checkWeather();
     }
 
-    initWeather();
-    startBubbleSequence();
-    const render = () => {
+    // render function
+    function render() {
       update();
       draw();
       animationFrameId = requestAnimationFrame(render);
-    };
+    }
+
+
+    initWeather();
+    startBubbleSequence();
     render();
+
+
+    (async () => {
+      const apiUrl = "https://hortus-back.onrender.com/api/notizie/world";
+      try {
+        const data = await fetchAnalysis(apiUrl, { timeout: 12000 });
+        if (
+          data?.hortus_active === true &&
+          Array.isArray(data?.ai_analysis?.cryptic_thoughts) &&
+          data.ai_analysis.cryptic_thoughts.length > 0
+        ) {
+          const arr = data.ai_analysis.cryptic_thoughts;
+          const pensiero = arr[Math.floor(Math.random() * arr.length)];
+          bubbleMessages = [pensiero];
+          startBubbleSequence();
+        } 
+      } catch (err) {
+        if (err?.name === "AbortError") {
+          console.warn("fetchAnalysis abort (probabile timeout). Uso i messaggi di default.");
+        } else {
+          console.error("Errore fetch hortus:", err);
+        }
+      }
+    })();
 
     return () => {
       cancelAnimationFrame(animationFrameId);
@@ -568,23 +593,24 @@ const GameWindow = ({ colors }) => {
         <canvas ref={canvasRef} width="1100" height="600" />
        
         <div className={style.buttonsContainer}>
-              <IconButton colors={colors} icon={<Sun
+              <IconButton icon={<Sun
                                 className={style.icon}
-                                style={{ width: 20, height: 20,  }}
+                                style={{ width: 20, height: 20 }}
                                
-                            /> }  onClick={() => setWeather("sun")}/>
-              <IconButton colors={colors} icon={<Plant
+                            /> }  colors={colors} onClick={() => setWeather("sun")}/>
+              <IconButton icon={<Plant
+                                className={style.icon}
+                                style={{ width: 20, height: 20 }} 
+								
+                            /> } colors={colors} onClick={() => setWeather("rainbow")} />
+              <IconButton icon={<Rain
                                 className={style.icon}
                                 style={{ width: 20, height: 20 }}
-                            /> } onClick={() => setWeather("rainbow")} />
-              <IconButton colors={colors} icon={<Rain
+                            /> } colors={colors} onClick={() => setWeather("rain")} />
+              <IconButton icon={<Snow
                                 className={style.icon}
                                 style={{ width: 20, height: 20 }}
-                            /> } onClick={() => setWeather("rain")} />
-              <IconButton colors={colors} icon={<Snow
-                                className={style.icon}
-                                style={{ width: 20, height: 20 }}
-                            /> } onClick={() => setWeather("snow")} />
+                            /> } colors={colors} onClick={() => setWeather("snow")} />
             </div>
       </div>
     </div>
@@ -592,3 +618,9 @@ const GameWindow = ({ colors }) => {
 };
 
 export default GameWindow;
+
+
+
+
+
+
