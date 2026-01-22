@@ -92,7 +92,7 @@ class Field {
   }
 }
 
-const GameWindow = () => {
+const GameWindow = ({ colors }) => {
   const canvasRef = useRef(null);
   const weatherRef = useRef("");
 
@@ -568,20 +568,20 @@ const GameWindow = () => {
         <canvas ref={canvasRef} width="1100" height="600" />
        
         <div className={style.buttonsContainer}>
-              <IconButton icon={<Sun
+              <IconButton colors={colors} icon={<Sun
                                 className={style.icon}
-                                style={{ width: 20, height: 20 }}
+                                style={{ width: 20, height: 20,  }}
                                
                             /> }  onClick={() => setWeather("sun")}/>
-              <IconButton icon={<Plant
+              <IconButton colors={colors} icon={<Plant
                                 className={style.icon}
                                 style={{ width: 20, height: 20 }}
                             /> } onClick={() => setWeather("rainbow")} />
-              <IconButton icon={<Rain
+              <IconButton colors={colors} icon={<Rain
                                 className={style.icon}
                                 style={{ width: 20, height: 20 }}
                             /> } onClick={() => setWeather("rain")} />
-              <IconButton icon={<Snow
+              <IconButton colors={colors} icon={<Snow
                                 className={style.icon}
                                 style={{ width: 20, height: 20 }}
                             /> } onClick={() => setWeather("snow")} />

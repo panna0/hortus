@@ -4,7 +4,7 @@ import style from "./IconButton.module.scss";
 import { motion } from "framer-motion";
 
 
-const IconButton = ({ icon, onClick }) => {
+const IconButton = ({ icon, onClick, colors }) => {
     return (
         <motion.div 
         whileHover={{ scale: 1.1 }} 
@@ -15,7 +15,7 @@ const IconButton = ({ icon, onClick }) => {
         stiffness: 400,
         damping: 10,
       }}>
-            <button className={style.iconButton} onClick={onClick}>
+            <button className={style.iconButton} onClick={onClick} style={{backgroundColor: colors['secondary']}}>
                 {icon}
             </button>
         </motion.div>

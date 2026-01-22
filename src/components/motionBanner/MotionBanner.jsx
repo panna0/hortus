@@ -12,7 +12,7 @@ const repeatedWords = Array(numberOfRepetitions)
   .fill(words)
   .flat(); // Unisci tutte le ripetizioni in un singolo array
 
-const MotionBanner = () => {
+const MotionBanner = ({ colors }) => {
   const bannerVariants = {
     initial: { x: 0 },
     animate: {
@@ -29,15 +29,16 @@ const MotionBanner = () => {
   };
 
   return (
-    <div className={styles.background}>
+    <div className={styles.background} style={{ backgroundColor: colors['lightGround'] }}>
       <motion.div
         variants={bannerVariants}
         initial="initial"
         animate="animate"
         className={styles.scrollingDiv}
+        
       >
         {repeatedWords.map((word, index) => (
-          <span key={`${word}-${index}`} className={styles.text}>
+          <span key={`${word}-${index}`} className={styles.text} style={{color: colors['secondary']}}>
             {word}
             <span className={styles.dot}> • </span>
           </span>
