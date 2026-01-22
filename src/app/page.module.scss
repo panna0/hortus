@@ -7,7 +7,6 @@
   @include vertical-flex;
   width: 100vw;
   height: 100vh;
-  background-color: color("grass");
   position: relative;
   overflow-x: hidden;
   overflow-y: visible;
@@ -179,3 +178,22 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+
+.titleContainer {
+  @include horizontal-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  h1 {
+    color: color("secondary");
+    font-size: 5rem;
+    font-weight: 900;
+    margin: 0;
+
+    span{
+         color: color("primary");
+         text-transform: uppercase;
+    }
+    }
+  }
