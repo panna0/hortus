@@ -8,10 +8,9 @@
   width: 90vw;
   border: 1px solid color("secondary");
   border-radius: 0.5rem;
-  padding: 5px 20px;
-  margin-top: 5vh;
-  position: absolute;
-  top: 0;             
+  padding: 5px;
+  position: fixed;
+  top: 3rem;             
   z-index: 11;
   pointer-events: auto;
 
