@@ -23,10 +23,10 @@ export const HortusProvider = ({ children }) => {
       setError('');
 
       // Chiamata all'endpoint specifico
-      const response = await HortusApiManager.get('/api/notizie/world');
+      const response = await HortusApiManager.get('/api/notizie/world?debug=true');
 
       // Supponendo che il tuo backend restituisca un array o un oggetto con data
-      const data = response.data.analisi_ia.analisi_generale.sentiment_complessivo;
+      const data = response.data.ai_analysis.general_analysis.overall_sentiment;
       setNews(data);
       console.log(response);
       return data;
