@@ -11,6 +11,7 @@ import IconCard from "../components/IconCard/IconCard.jsx";
 import CardIcon1 from "../../public/cardIcon1.svg";
 import CardIcon2 from "../../public/cardIcon2.svg";
 import CardIcon3 from "../../public/cardIcon3.svg";
+import HortusChat from "../components/chat/HortusChat.jsx" 
 
 // Import sfondi
 import bg1 from '../../public/grassBackground.png';
@@ -96,6 +97,7 @@ const LandingPage = () => {
         <MotionBanner colors={colors}/>
       </div>
 
+      <HortusChat />
       {/* Sezione Terra 2 */}
       <div 
         className={style.ground2} 
@@ -122,6 +124,21 @@ const LandingPage = () => {
             color={'#9DBD36'}
           />
         </div>
+{/* 
+        <iframe
+          width="540"
+          height="305"
+          src="https://cf8d9ab9.sibforms.com/serve/MUIFAAd5qgHjV2aL34TM_eIyCLmDrOJMbVbS2lQQBUh_VOPJHXHFKeLfjnhngZ_AjpRkCqV-h_64c44ovxcRQ4IQnGXp1LRDAYZLNA-9T8-YiP5e91YJsas0ADFCWmMI_4QUH-UQJBC6Je0_4oKM6gZjsc8P1MjumHKPpvAHTpcqFJiRbrFpBjvL70WguuG4OUke4rPNA4dk2tnVnw=="
+          frameBorder="0"
+          scrolling="auto"
+          allowFullScreen
+          style={{
+            display: 'block',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            maxWidth: '100%'
+          }}
+        ></iframe> */}
       </div>
     </div>
   );
