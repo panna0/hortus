@@ -153,6 +153,7 @@ import { useState } from "react";
 import style from "./page.module.scss";
 import { useHortus } from "../context/HortusContext.jsx";
 
+
 // Componenti...
 import NeutralTitle from "../components/neutralTitle/NeutralTitle.jsx";
 import GameWindow from "../components/gameWindow/GameWindow.jsx";
@@ -164,6 +165,7 @@ import CardIcon3 from "../../public/cardIcon3.svg";
 import HortusChat from "../components/chat/HortusChat.jsx"
 import Button from "../components/button/Button.jsx";
 import Footer from "../components/footer/Footer.jsx";
+
 
 // Import sfondi
 import bg1 from '../../public/grassBackground.png';
@@ -180,10 +182,11 @@ import bg2Scared from '../../public/groundBackground1Scared.png';
 import bg3Scared from '../../public/groundBackground2Scared.png';
 
 const LandingPage = () => { 
-  const { news, loading, fetchWorldNews } = useHortus();
+  const { news, loading, fetchWorldNews, newsletterSubmit } = useHortus();
 
   useEffect(() => {
     fetchWorldNews();
+    
   }, []);
 
   // 1. Mappatura delle emozioni agli sfondi (utilizziamo .src per Next.js)
@@ -215,28 +218,44 @@ const LandingPage = () => {
 
 
   const [email, setEmail] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [name, setFirstName] = useState('');
+  const [last_name, setLastName] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
+// Funzione di validazione
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   const handleNewsletterSubmit = async () => {
-    if (!email) return alert("L'email è obbligatoria");
+    // 1. Controllo se il campo è vuoto
+    if (!email) {
+      alert("L'email è obbligatoria");
+      return;
+    }
+
+    // 2. Controllo validità formato
+    if (!validateEmail(email)) {
+      alert("Per favore, inserisci un indirizzo email valido (es: nome@esempio.com)");
+      return;
+    }
     
     setSubmitting(true);
     try {
-      await subscribeToNewsletter({ email, firstName, lastName });
-      alert("Iscrizione avvenuta con successo!");
-      // Reset dei campi
+      // Nota: Assicurati che newsletterSubmit sia importata correttamente dal tuo manager
+      await newsletterSubmit({ email, name, last_name });
+      alert("Iscrizione completata!");
       setEmail('');
       setFirstName('');
       setLastName('');
     } catch (error) {
-      alert("Errore durante l'invio. Riprova più tardi.");
+      alert("Errore durante l'invio.");
+      console.error("Newsletter submission error:", error);
     } finally {
       setSubmitting(false);
     }
   };
-
   // Debug per vedere cosa arriva dal server
   useEffect(() => {
     if (!loading) {
@@ -332,7 +351,7 @@ const LandingPage = () => {
               type="text" 
               placeholder="Il tuo nome" 
               className={style.newsletterInput}
-              value={firstName} // Stato
+              value={name} // Stato
               onChange={(e) => setFirstName(e.target.value)} // Update
               style={{backgroundColor: colors['lightGround'], color: colors['secondary'], borderColor: colors['lightGround2']}}
             />
@@ -340,7 +359,7 @@ const LandingPage = () => {
               type="text" 
               placeholder="Il tuo cognome" 
               className={style.newsletterInput}
-              value={lastName} // Stato
+              value={last_name} // Stato
               onChange={(e) => setLastName(e.target.value)} // Update
               style={{backgroundColor: colors['lightGround'], color: colors['secondary'], borderColor: colors['lightGround2']}}
             />

@@ -31,17 +31,17 @@ const About = () => {
 
                 <h3>Our Mission</h3>
                 <p>
-                    In Hortus.live, la nostra missione è riportare la natura al centro della vita quotidiana, rendendo il giardinaggio un’esperienza accessibile, consapevole e profondamente rigenerante. Crediamo che ogni spazio verde, dal grande giardino rurale al piccolo balcone cittadino, sia un ecosistema prezioso capace di migliorare il benessere psicofisico e l'ambiente che ci circonda. Ci impegniamo a fornire le conoscenze e gli strumenti necessari affinché chiunque possa coltivare non solo piante, ma una vera e propria riconnessione con i ritmi della terra.
+                    At Hortus.live, our mission is to bring nature back to the center of daily life, making gardening an accessible, conscious, and deeply rejuvenating experience. We believe that every green space—from expansive rural gardens to small city balconies—is a precious ecosystem capable of enhancing both our mental well-being and the environment around us. We are committed to providing the knowledge and tools necessary for everyone to cultivate not just plants, but a genuine reconnection with the rhythms of the earth.
                 </p>
 
                 <h3>The Project</h3>
                 <p>
-                    Hortus.live nasce come un ecosistema digitale dinamico, progettato per colmare il divario tra la tradizione botanica e l'innovazione tecnologica. Il progetto si sviluppa come una piattaforma interattiva dove guide pratiche, consigli stagionali e approfondimenti scientifici si incontrano in un formato "live" e sempre aggiornato. Non siamo solo un archivio di informazioni, ma un laboratorio in continua evoluzione che utilizza il digitale per monitorare, condividere e celebrare la crescita del verde in tutte le sue forme.
+                    Hortus.live was born as a dynamic digital ecosystem, designed to bridge the gap between botanical tradition and technological innovation. The project functions as an interactive platform where practical guides, seasonal advice, and scientific insights meet in a "live," constantly updated format. We are more than just an archive of information; we are an ever-evolving laboratory that utilizes digital tools to monitor, share, and celebrate the growth of greenery in all its forms.
                 </p>
 
                 <h3>Contact Us</h3>
                 <p>
-                    Siamo sempre felici di scambiare idee, rispondere a dubbi botanici o valutare nuove collaborazioni. Che tu sia un esperto del settore, un brand orientato alla sostenibilità o un principiante alle prese con la sua prima pianta, la tua voce è importante per noi. Puoi scriverci direttamente alla nostra email dedicata, seguirci sui nostri canali social per aggiornamenti quotidiani, o compilare il form qui sotto. Entra a far parte della community di Hortus.live: coltiviamo insieme il futuro, un germoglio alla volta.
+                    We are always happy to exchange ideas, answer botanical questions, or explore new collaborations. Whether you are a field expert, a sustainability-oriented brand, or a beginner tackling your very first plant, your voice matters to us. You can write to us directly at our dedicated email address, follow our social media channels for daily updates, or fill out the form below. Join the Hortus.live community: let’s cultivate the future together, one sprout at a time.
                 </p>
             </div>
             

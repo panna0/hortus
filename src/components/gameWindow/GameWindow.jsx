@@ -1,5 +1,5 @@
 'use client';
-
+import HortusApiManager from "../../services/HortusApiManager.js";
 import { useEffect, useRef } from "react";
 import style from "./GameWindow.module.scss";
 import IconButton from "../iconButton/IconButton.jsx";

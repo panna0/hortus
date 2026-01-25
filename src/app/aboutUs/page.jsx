@@ -51,34 +51,28 @@ const AboutHortus = () => {
 
                 <div className={style.main}>
                     <section className={style.section}>
-                        <h3>About me</h3>
+                        <h3>About us/ The team</h3>
                         <p>
-                            Siamo gli studenti del terzo anno di Media Design dello IED Milano, anno accademico 2025–2026.
-                            Questo progetto nasce all’interno del corso di Progettazione Multimediale 3 – Unità Didattica 1, con l’obiettivo di sviluppare un elaborato completo che unisca ricerca, concept, contenuti e progettazione digitale.
-                        </p>
-                        <p>
-                            Attraverso un approccio multidisciplinare, abbiamo lavorato sull’analisi del tema, sulla costruzione narrativa e sulla traduzione dei contenuti in un’esperienza multimediale coerente. Il progetto rappresenta un esercizio di sintesi tra teoria e pratica, pensato per sperimentare linguaggi, strumenti e metodologie del design contemporaneo.
+                            We are third-year Media Design students at IED Milan, for the 2025–2026 academic year. This project was developed as part of the Multimedia Design 3 – Unit 1 course, with the goal of creating a comprehensive work that merges research, concept development, content creation, and digital design. Through a multidisciplinary approach, we focused on thematic analysis, narrative construction, and the translation of content into a cohesive multimedia experience. The project serves as a synthesis of theory and practice, designed to experiment with the languages, tools, and methodologies of contemporary design.
                         </p>
                     </section>
 
                     <section className={style.section}>
                         <h3>The Project</h3>
                         <p>
-                            Questo progetto esplora il fenomeno delle leggende metropolitane come forma di folklore moderno, dalle loro origini nella tradizione orale fino alla diffusione virale nell’era digitale e dell’intelligenza artificiale. Attraverso un’analisi culturale, storica e sociale, indaghiamo come queste storie riflettano paure collettive, cambiamenti tecnologici e dinamiche di comunicazione contemporanee. Un viaggio tra mito e realtà per comprendere perché, ancora oggi, le leggende continuano a nascere, trasformarsi e sopravvivere.
+                            This project explores the phenomenon of urban legends as a form of modern folklore, tracing their journey from oral traditions to viral distribution in the age of digital media and Artificial Intelligence. Through a cultural, historical, and social lens, we investigate how these stories reflect collective fears, technological shifts, and contemporary communication dynamics. It is a journey between myth and reality, aimed at understanding why legends continue to emerge, transform, and thrive today.
                         </p>
                     </section>
 
                     <section className={style.section}>
-                        <h3>The Docs</h3>
+                        <h3>Documentation / Project Archive</h3>
                         <p>
-                            In questa sezione sono raccolti tutti i documenti che raccontano il percorso di sviluppo del progetto, dalla fase di ricerca iniziale fino alla realizzazione finale.
-                            I materiali includono analisi teoriche, approfondimenti tematici, concept di progetto e contenuti di supporto, utili a comprendere le scelte creative e progettuali effettuate.
-                            Questa raccolta documenta il processo di lavoro in modo trasparente, mettendo in evidenza l’evoluzione dell’idea e il metodo utilizzato per trasformarla in un progetto multimediale strutturato.
+                            This section gathers all the documents detailing the project’s development process, from the initial research phase to the final execution. The materials include theoretical analyses, thematic deep-dives, project concepts, and supporting content, providing insight into the creative and design choices made throughout. This collection documents the workflow transparently, highlighting the evolution of the idea and the methodology used to transform it into a structured multimedia project.
                         </p>
                     </section>
 
                     <blockquote className={style.quote}>
-                        “Un progetto è vivo quando unisce ricerca, visione e cura.”
+                        "A project is alive when it combines research, vision, and care."
                     </blockquote>
                 </div>
             </section>
