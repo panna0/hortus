@@ -2,7 +2,7 @@ import React from 'react';
 import style from './page.module.scss';
 import Link from 'next/link';
 import Footer from '../../components/footer/Footer';
-
+import Image from '../../../public/hortus_img.webp'
 
 
 const About = () => { 
@@ -25,8 +25,8 @@ const About = () => {
             </div>
 
             <div className={style.textSection}>
-                <div className={style.imageSection}>
-                    <span>Image Placeholder (e.g., Team or Greenhouse)</span>
+                <div className={style.imageSection} style={{ backgroundImage: `url(${Image.src})` }}>
+
                 </div>
 
                 <h3>Our Mission</h3>

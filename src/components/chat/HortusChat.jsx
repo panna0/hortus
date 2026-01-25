@@ -4,24 +4,25 @@ import './HortusChat.css';
 const CHAT_API_URL = 'https://hortus-back.onrender.com/api/chat';
 
 // --------- ICONE DA CAMBIARE -----------
-// 1. Foglia Semplice (Senza freccia)
+// 1. Icona Foglia (Corretta)
 const LeafIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="chat-icon-svg">
-    <path d="M11.9998 3C11.9998 3 13.3331 9.66667 20.9998 11.9994C21.0003 12.0001 21.0008 12.0008 21.0008 12.0017C21.0008 12.0025 21.0003 12.0033 20.9998 12.0039C13.3331 14.3367 11.9998 21 11.9998 21C11.9998 21 10.6664 14.3367 2.99976 12.0039C2.99923 12.0033 2.99878 12.0025 2.99878 12.0017C2.99878 12.0008 2.99923 12.0001 2.99976 11.9994C10.6664 9.66667 11.9998 3 11.9998 3Z" />
+    {/* Tracciato di una foglia singola, organica, orientata in diagonale */}
+    <path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22L6.66 19.7C7.14 19.87 7.64 20 8 20C19 20 22 3 22 3S15 4 10 7C5 10 4 15 4 17C9 15 15 10 17 8Z" />
   </svg>
 );
 
-// 2. Icona Espandi (Fullscreen)
+// 2. Icona Espandi (Angoli)
 const MaximizeIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="chat-icon-svg small">
-    <path fillRule="evenodd" d="M3.25 3.25a.75.75 0 00-.75.75v3.5a.75.75 0 001.5 0V4.75h2.75a.75.75 0 000-1.5H3.25zm0 10a.75.75 0 00.75.75h2.75a.75.75 0 000-1.5H4.75v-2.75a.75.75 0 00-1.5 0v3.5zm13.5-9.25a.75.75 0 00-.75-.75h-3.5a.75.75 0 000 1.5h2.75v2.75a.75.75 0 001.5 0V4a.75.75 0 00-.75-.75zm0 10a.75.75 0 00.75-.75v-3.5a.75.75 0 00-1.5 0v2.75h-2.75a.75.75 0 000 1.5h3.5z" clipRule="evenodd" />
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="chat-icon-svg small">
+    <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" />
   </svg>
 );
 
-// 3. Icona Riduci (Exit Fullscreen)
+// 3. Icona Riduci (Angoli inversi)
 const MinimizeIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="chat-icon-svg small">
-     <path fillRule="evenodd" d="M3.25 7.5a.75.75 0 001.5 0V4.75h2.75a.75.75 0 000-1.5H4a.75.75 0 00-.75.75v3.5zm13.5-3.5a.75.75 0 00-1.5 0v2.75h-2.75a.75.75 0 000 1.5h3.5a.75.75 0 00.75-.75V4zM4.75 16.75a.75.75 0 000-1.5H7.5a.75.75 0 000-1.5H4a.75.75 0 00-.75.75v3.5a.75.75 0 001.5 0v-2.75zm12 0a.75.75 0 000-1.5h-2.75v-2.75a.75.75 0 00-1.5 0v3.5a.75.75 0 00.75.75H16.75z" clipRule="evenodd" />
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="chat-icon-svg small">
+    <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3" />
   </svg>
 );
 

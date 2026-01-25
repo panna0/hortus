@@ -1,7 +1,8 @@
 /* * Stili per HortusChat
- * Palette:
- * Verde Erba: #22c55e (scuro: #15803d)
- * Marrone Terra: #854d0e (scuro: #713f12, chiaro: #fefce8, testo: #78350f)
+ * Palette Aggiornata basata su page.module.scss:
+ * Brand Green (Primary): #9dbd36
+ * Brand Darker (Hover/Text): #8aa62e / #5d7020
+ * Brand Light (Bg): #f4f8e6
  */
 
 /* --- Il Bottone (Cerchio Chiuso) --- */
@@ -12,10 +13,10 @@
   right: 24px;
   z-index: 1000;
 
-  /* Aspetto (Cerchio Verde Erba) */
+  /* Aspetto (Brand Green) */
   width: 64px;
   height: 64px;
-  background-color: #15803d; /* Verde scuro */
+  background-color: #9dbd36; /* Colore brand dal loader */
   color: #ffffff;
   border-radius: 50%;
   border: none;
@@ -28,17 +29,19 @@
   /* Effetti */
   cursor: pointer;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out, background-color 0.2s;
 }
 
 .hortus-chat-button:hover {
   transform: scale(1.1);
+  background-color: #8aa62e; /* Versione leggermente più scura */
 }
 
 /* Icona foglia dentro il bottone */
 .hortus-chat-button .chat-icon-svg {
   width: 32px;
   height: 32px;
+  fill: currentColor;
 }
 
 
@@ -51,29 +54,32 @@
   z-index: 1000;
 
   /* Dimensioni */
-  width: 360px; /* Larghezza desktop */
-  height: 75vh; /* Altezza massima relativa */
+  width: 360px;
+  height: 75vh;
 
-  /* Limiti per il resize manuale */
+  /* Limiti resize */
   min-width: 300px;
   min-height: 400px;
-  max-width: 90vw; /* Non uscire dallo schermo */
+  max-width: 90vw;
   max-height: 90vh;
 
-  /* --- NUOVO: Rende la finestra ridimensionabile --- */
-  resize: both;     /* Abilita il trascinamento dell'angolo */
-  overflow: hidden; /* Necessario per far funzionare il resize pulito */
+  resize: both;
+  overflow: hidden;
 
   /* Aspetto */
   background-color: #ffffff;
   border-radius: 8px;
-  border: 2px solid rgba(21, 128, 61, 0.3); /* Bordo Verde */
+  /* Bordo color brand con trasparenza */
+  border: 2px solid rgba(157, 189, 54, 0.4); 
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   
   /* Layout interno */
   display: flex;
   flex-direction: column;
   transition: width 0.3s, height 0.3s, border-radius 0.3s, bottom 0.3s, right 0.3s;
+  
+  /* Font Match */
+  font-family: var(--font-roboto), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .hortus-chat-window.fullscreen {
@@ -84,19 +90,19 @@
   bottom: 0;
   right: 0;
   border-radius: 0;
-  resize: none; /* Disabilita il resize manuale in fullscreen */
+  resize: none;
   border: none;
 }
 
-/* Header (Marrone Terra) */
+/* Header (Brand Green) */
 .chat-header {
-  background-color: #854d0e; /* Marrone Terra */
+  background-color: #9dbd36; /* Allineato al brand */
   color: #ffffff;
   padding: 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-top-left-radius: 6px; /* Arrotonda solo gli angoli superiori */
+  border-top-left-radius: 6px;
   border-top-right-radius: 6px;
   cursor: default;
 }
@@ -122,10 +128,9 @@
   background-color: rgba(255, 255, 255, 0.2);
 }
 
-
 .chat-title {
-  font-weight: bold;
-  font-size: 1.125rem; /* 18px */
+  font-weight: 900; /* Più bold come i titoli del sito */
+  font-size: 1.125rem;
 }
 
 .chat-close-btn {
@@ -141,21 +146,20 @@
   background-color: rgba(255, 255, 255, 0.2);
 }
 
-/* Icone piccole (chiudi, invia) */
 .chat-icon-svg.small {
   width: 20px;
   height: 20px;
 }
 
-/* Corpo della Chat (Sfondo Terra Chiara) */
+/* Corpo della Chat */
 .chat-body {
-  flex-grow: 1; /* Occupa tutto lo spazio disponibile */
+  flex-grow: 1;
   padding: 16px;
-  overflow-y: auto; /* Abilita lo scroll */
-  background-color: #fefce8; /* Terra molto chiara */
+  overflow-y: auto;
+  background-color: #ffffff; /* Sfondo pulito o #fdfef9 */
   display: flex;
   flex-direction: column;
-  gap: 12px; /* Spazio tra i messaggi */
+  gap: 12px;
 }
 
 /* Messaggi individuali */
@@ -163,29 +167,30 @@
   padding: 12px;
   border-radius: 8px;
   max-width: 85%;
-  word-break: break-word; /* Evita che il testo lungo rompa il layout */
+  word-break: break-word;
   line-height: 1.5;
+  font-size: 0.95rem;
 }
 
-/* Messaggio Utente (Terra) */
+/* Messaggio Utente (Grigio/Neutro o Terra chiaro se preferisci) */
 .chat-message.user {
-  background-color: #fde68a; /* Giallo/Terra chiaro */
-  color: #78350f; /* Testo Marrone scuro */
-  align-self: flex-end; /* Allinea a destra */
-  border-bottom-right-radius: 0; /* Stile "fumetto" */
+  background-color: #f3f3f3; /* Grigio chiaro preso dal tuo spinner */
+  color: #333333;
+  align-self: flex-end;
+  border-bottom-right-radius: 0;
 }
 
-/* Messaggio AI (Erba) */
+/* Messaggio AI (Brand Light) */
 .chat-message.assistant {
-  background-color: #dcfce7; /* Verde Erba chiaro */
-  color: #14532d; /* Testo Verde scuro */
-  align-self: flex-start; /* Allinea a sinistra */
-  border-bottom-left-radius: 0; /* Stile "fumetto" */
+  background-color: #f4f8e6; /* Versione molto chiara di #9dbd36 */
+  color: #4a5c10; /* Testo verde scuro leggibile */
+  align-self: flex-start;
+  border-bottom-left-radius: 0;
 }
 
-/* Messaggio "sta pensando..." */
 .chat-message.loading span {
   animation: pulse 1.5s infinite ease-in-out;
+  color: #9dbd36;
 }
 
 @keyframes pulse {
@@ -200,70 +205,58 @@
   background-color: #ffffff;
   display: flex;
   align-items: center;
-  gap: 8px; /* Spazio tra input e bottone */
+  gap: 8px;
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
 }
 
 .chat-input {
-  flex-grow: 1; /* Occupa lo spazio */
-  padding: 8px 12px;
-  border: 1px solid #d1d5db;
-  border-radius: 18px; /* Meno arrotondato di 'pill' per far spazio */
+  flex-grow: 1;
+  padding: 10px 14px;
+  border: 2px solid #f3f3f3; /* Bordo grigio chiaro */
+  border-radius: 18px;
   font-size: 14px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; /* Usa il font di sistema */
-  
-  /* Specifico per Textarea */
-  resize: none; /* Impedisce il ridimensionamento manuale */
-  max-height: 100px; /* Limita l'altezza massima */
+  font-family: var(--font-roboto), sans-serif;
+  resize: none;
+  max-height: 100px;
   line-height: 1.5;
-  
-  /* Transizione per lo scroll automatico */
-  overflow-y: auto; /* Abilita lo scroll *interno* se supera max-height */
+  overflow-y: auto;
+  transition: border-color 0.3s ease;
+  outline: none;
 }
-/* Script per far crescere il textarea (non necessario con max-height,
-   ma se vuoi che cresca con il contenuto, si fa con JS.
-   Per ora, `rows="1"` e `max-height` è la soluzione CSS più pulita) */
 
 .chat-input:focus {
-  outline: none;
-  border-color: #15803d; /* Verde Erba scuro */
-  box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.3);
+  border-color: #9dbd36; /* Focus verde brand */
 }
 
 
-/* --- CORREZIONE ICONA SEND --- */
+/* --- ICONA SEND --- */
 .chat-send-btn {
-  /* Dimensioni del cerchio */
   width: 40px;
   height: 40px;
-  background-color: #15803d;
+  background-color: #9dbd36; /* Brand Green */
   color: #ffffff;
   border-radius: 50%;
   border: none;
-  
-  /* Centratura perfetta */
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  
   cursor: pointer;
   transition: background-color 0.2s;
 }
 
-/* Riduciamo l'icona interna per farla "respirare" nel cerchio */
 .chat-send-btn .chat-icon-svg {
-  width: 20px;  /* Più piccola di prima */
+  width: 20px;
   height: 20px;
-  transform: translateX(2px); /* Opzionale: piccolo aggiustamento ottico se sembra scentrata */
+  transform: translateX(2px);
 }
 
 .chat-send-btn:hover {
-  background-color: #166534; /* Verde ancora più scuro */
+  background-color: #8aa62e; /* Darker Brand */
 }
 
 .chat-send-btn:disabled {
-  opacity: 0.5;
+  background-color: #d1d5db;
   cursor: not-allowed;
 }
