@@ -20,7 +20,7 @@ export const HortusProvider = ({ children }) => {
       setLoading(true);
       setError('');
 
-      const response = await HortusApiManager.get('/api/notizie/world?debug=true');
+      const response = await HortusApiManager.get('/api/notizie/world');
 
       const data = response.data.ai_analysis.general_analysis.overall_sentiment;
       setNews(data);

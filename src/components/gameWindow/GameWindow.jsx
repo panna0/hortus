@@ -7,7 +7,6 @@ import Sun from "../../../public/pixelSun.svg";
 import Plant from "../../../public/pixelPlant.svg";
 import Rain from "../../../public/pixelRain.svg";
 import Snow from "../../../public/pixelSnow.svg";
-import { fetchAnalysis } from "./ApiManager.js";
 
 const TILE_WIDTH = 16;
 const TILE_HEIGHT = 32;
@@ -94,7 +93,10 @@ const GameWindow = (colors) => {
   const canvasRef = useRef(null);
   const weatherRef = useRef("");
 
+
   useEffect(() => {
+
+
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     let animationFrameId;
@@ -551,10 +553,39 @@ const GameWindow = (colors) => {
     render();
 
 
+    // (async () => {
+    //   const apiUrl = "https://hortus-back.onrender.com/api/notizie/world";
+    //   try {
+    //     const data = await fetchAnalysis(apiUrl, { timeout: 30000 });
+    //     if (
+    //       data?.hortus_active === true &&
+    //       Array.isArray(data?.ai_analysis?.cryptic_thoughts) &&
+    //       data.ai_analysis.cryptic_thoughts.length > 0
+    //     ) {
+    //       const arr = data.ai_analysis.cryptic_thoughts;
+    //       const pensiero = arr[Math.floor(Math.random() * arr.length)];
+    //       bubbleMessages = [pensiero];
+    //       startBubbleSequence();
+    //     } 
+    //   } catch (err) {
+    //     if (err?.name === "AbortError") {
+    //       console.warn("fetchAnalysis abort (probabile timeout). Uso i messaggi di default.");
+    //     } else {
+    //       console.error("Errore fetch hortus:", err);
+    //     }
+    //   }
+    // })();
+
+
     (async () => {
-      const apiUrl = "https://hortus-back.onrender.com/api/notizie/world";
       try {
-        const data = await fetchAnalysis(apiUrl, { timeout: 30000 });
+        // Axios usa il percorso relativo perché la baseURL è già impostata
+        const response = await HortusApiManager.get("/api/notizie/world", { 
+          timeout: 30000 
+        });
+        
+        const data = response.data; // Axios impacchetta il body in .data
+
         if (
           data?.hortus_active === true &&
           Array.isArray(data?.ai_analysis?.cryptic_thoughts) &&
@@ -562,14 +593,17 @@ const GameWindow = (colors) => {
         ) {
           const arr = data.ai_analysis.cryptic_thoughts;
           const pensiero = arr[Math.floor(Math.random() * arr.length)];
+          
+          // Aggiorna i messaggi e resetta la sequenza
           bubbleMessages = [pensiero];
           startBubbleSequence();
         } 
       } catch (err) {
-        if (err?.name === "AbortError") {
-          console.warn("fetchAnalysis abort (probabile timeout). Uso i messaggi di default.");
+        // Axios lancia errori per status code fuori dal range 2xx
+        if (err.code === 'ECONNABORTED') {
+          console.warn("Richiesta scaduta (timeout). Uso i messaggi di default.");
         } else {
-          console.error("Errore fetch hortus:", err);
+          console.error("Errore durante il recupero dei pensieri Hortus:", err.message);
         }
       }
     })();

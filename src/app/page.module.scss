@@ -1,3 +1,205 @@
+// @use "./../styles/_mixin.scss" as *;
+// @use "./../styles/_variables.scss" as *; 
+// @use "./../styles/_functions.scss" as *;
+
+
+// .container {
+//   @include vertical-flex;
+//   width: 100vw;
+//   height: 100vh;
+//   position: relative;
+//   overflow-x: hidden;
+//   overflow-y: visible;
+// }
+
+// .grass {
+//   background-image: url(../../public/grassBackground.png);
+//   background-size: cover;
+//   background-position: center bottom;
+//   @include vertical-flex;
+//   height: 90vh;
+//   top: 0;
+//   width: 100vw;
+//   gap: 3vh;
+//   align-items: center;
+//   justify-content: center;
+//   z-index: 10;
+//   position: relative;
+//   transform: translateZ(0) translateY(0);
+// }
+
+// .icon {
+//   fill: color("grass");
+// }
+
+
+
+// .ground {
+//   width: 100vw;
+//   height: 80vh;
+//   background-image: url(../../public/groundBackground1.png);
+//   background-size: cover;
+//   position: absolute;          /* lo sovrapponiamo */
+//   top: 90vh;                  /* parte subito dopo grass */
+//   transform: translateY(-10vh); /* spostalo su e indietro */
+//   z-index: 9;                  /* dietro al prato */
+  
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+// }
+
+// .quoteContainer {
+//   width: 90%; // Allargato da 80%
+//   max-width: 1200px; // Allargato da 800px
+//   text-align: center;
+//   color: white;
+//   margin-top: 16vh; // Spaziatura per non sovrapporsi troppo col bordo superiore
+
+//   blockquote {
+//     font-size: 4rem; // Ingrandito
+//     font-weight: 700; 
+//     font-style: normal; 
+//     line-height: 1.1;
+//     color: color("secondary");
+//     margin-bottom: 2rem;
+//     position: relative;
+//     display: inline-block; 
+    
+//     // Virgolette aperte
+//     &::before {
+//       content: "“";
+//       font-family: serif;
+//       font-size: 8rem; // Ingrandite
+//       color: color("primary");
+//       opacity: 0.5;
+//       position: absolute;
+//       top: -5rem;
+//       left: -1rem;
+//       line-height: 1;
+//     }
+
+//     // Virgolette chiuse 
+//     &::after {
+//       content: "”";
+//       font-family: serif;
+//       font-size: 8rem; // Ingrandite
+//       color: color("primary");
+//       opacity: 0.5;
+//       position: absolute;
+//       bottom: -6rem; 
+//       right: -1rem;
+//       line-height: 1;
+//     }
+//   }
+
+//   cite {
+//     font-size: 1.2rem;
+//     color: color("primary");
+//     text-transform: uppercase;
+//     letter-spacing: 2px;
+//     font-style: normal;
+//     font-weight: 700;
+//   }
+// }
+
+// .banner{
+//   position: absolute;
+//   top: 160vh;
+//   width: 100vw;
+//   z-index: 11;
+// }
+// .ground2 {
+//   width: 100vw;
+//   height: 100vh;
+//   background-image: url(../../public/groundBackground2.png);
+//   background-size: cover;
+//   position: absolute;          
+//   top: 180vh;                  
+//   transform: translateY(-10vh); 
+//   z-index: 9;   
+//   @include vertical-flex;  
+//   justify-content: initial; 
+//   gap: 8vh;
+//   align-items: center;     
+         
+// }
+
+
+// .iconCardContainer{
+//   @include horizontal-flex;
+//   width: 70%;
+//   justify-content: space-between;
+//   height: fit-content;
+// }
+
+// .sectionTitle{
+//   color: color("secondary");
+//     font-size: 4rem;
+//     font-weight: 900;
+//     margin-top: 20vh;
+
+//     span{
+//       color: color("primary");
+//     }
+// }
+
+// .fullScreenLoader {
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   width: 100vw;
+//   height: 100vh;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+//   background-color: #ffffff; // O il colore di sfondo del tuo sito
+//   z-index: 9999;
+
+//   p {
+//     margin-top: 20px;
+//     font-family: var(--font-roboto);
+//     color: #9dbd36;
+//     font-weight: bold;
+//   }
+// }
+
+// .spinner {
+//   width: 50px;
+//   height: 50px;
+//   border: 5px solid #f3f3f3;
+//   border-top: 5px solid #9dbd36; // Colore verde del tuo brand
+//   border-radius: 50%;
+//   animation: spin 1s linear infinite;
+// }
+
+// @keyframes spin {
+//   0% { transform: rotate(0deg); }
+//   100% { transform: rotate(360deg); }
+// }
+
+
+// .titleContainer {
+//   @include horizontal-flex;
+//   align-items: center;
+//   gap: 0.5rem;
+
+//   h1 {
+//     color: color("secondary");
+//     font-size: 5rem;
+//     font-weight: 900;
+//     margin: 0;
+
+//     span{
+//          color: color("primary");
+//          text-transform: uppercase;
+//     }
+//     }
+//   }
+
+
+
 @use "./../styles/_mixin.scss" as *;
 @use "./../styles/_variables.scss" as *; 
 @use "./../styles/_functions.scss" as *;
@@ -10,6 +212,8 @@
   position: relative;
   overflow-x: hidden;
   overflow-y: visible;
+
+
 }
 
 .grass {
@@ -26,10 +230,16 @@
   z-index: 10;
   position: relative;
   transform: translateZ(0) translateY(0);
+
+  @media (max-width: 768px) {
+    height: 60vh;
+  }
 }
 
 .icon {
   fill: color("grass");
+
+  
 }
 
 
@@ -47,6 +257,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 768px) {
+    height: 40vh;
+    padding: 1rem;
+    transform: translateY(-30vh);
+  }
+  
 }
 
 .quoteContainer {
@@ -65,6 +282,10 @@
     margin-bottom: 2rem;
     position: relative;
     display: inline-block; 
+
+    @media (max-width: 768px) {
+      font-size: 1.5rem;
+  }
     
     // Virgolette aperte
     &::before {
@@ -77,6 +298,12 @@
       top: -5rem;
       left: -1rem;
       line-height: 1;
+
+
+       @media (max-width: 768px) {
+      font-size: 3rem;
+      top : -2rem;
+  }
     }
 
     // Virgolette chiuse 
@@ -90,6 +317,11 @@
       bottom: -6rem; 
       right: -1rem;
       line-height: 1;
+
+       @media (max-width: 768px) {
+      font-size: 3rem;
+      bottom: -2rem;
+  }
     }
   }
 
@@ -100,7 +332,11 @@
     letter-spacing: 2px;
     font-style: normal;
     font-weight: 700;
+
+    @media (max-width: 768px) {
+      font-size: 1rem;
   }
+}
 }
 
 .banner{
@@ -108,6 +344,10 @@
   top: 160vh;
   width: 100vw;
   z-index: 11;
+
+  @media (max-width: 768px) {
+    transform: translateY(-60vh); 
+  }
 }
 .ground2 {
   width: 100vw;
@@ -121,7 +361,13 @@
   @include vertical-flex;  
   justify-content: initial; 
   gap: 8vh;
-  align-items: center;     
+  align-items: center;  
+  
+  @media (max-width: 768px) {
+    height: fit-content;
+    padding: 1rem;
+    transform: translateY(-80vh);
+  }
          
 }
 
@@ -133,6 +379,14 @@
   height: fit-content;
 }
 
+@media (max-width: 768px) {
+  .iconCardContainer{
+    flex-direction: column;
+    width: 90%;
+    gap: 2rem;
+  }
+}
+
 .sectionTitle{
   color: color("secondary");
     font-size: 4rem;
@@ -141,6 +395,10 @@
 
     span{
       color: color("primary");
+    }
+    @media (max-width: 768px) {
+      font-size: 1.8rem;
+      margin-top: 10vh;
     }
 }
 
@@ -196,4 +454,103 @@
          text-transform: uppercase;
     }
     }
+
+    @media (max-width: 768px) {
+
+      h1{
+        font-size: 2rem;
+      }
+      
+    }
   }
+
+
+
+// Newsletter Section
+.newsletterSection {
+  width: 100vw;
+  min-height: 50vh;
+  position: absolute;
+  top: 280vh;
+  transform: translateY(-10vh);
+  z-index: 8;
+  @include vertical-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6vh 0;
+
+  @media (max-width: 768px) {
+    min-height: 40vh;
+    transform: translateY(-80vh);
+    padding: 4vh 2rem;
+  }
+}
+
+.newsletterContainer {
+  @include vertical-flex;
+  align-items: center;
+  text-align: center;
+  max-width: 600px;
+  width: 90%;
+  gap: 2rem;
+}
+
+.newsletterTitle {
+  font-size: 3.5rem;
+  font-weight: 900;
+  margin: 0;
+
+  span {
+    color: color("primary");
+  }
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
+}
+
+.newsletterSubtitle {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin: 0;
+  opacity: 0.9;
+
+  @media (max-width: 768px) {
+    font-size: 0.95rem;
+  }
+}
+
+.newsletterForm {
+  @include horizontal-flex;
+  gap: 1rem;
+  width: 100%;
+  justify-content: center;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+.newsletterInput {
+  padding: 1rem 1.5rem;
+  border-radius: 0.8rem;
+  border: 2px solid;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 320px;
+  outline: none;
+  transition: border-color 0.3s ease;
+
+  &::placeholder {
+    opacity: 0.6;
+  }
+
+  &:focus {
+    border-color: color("primary");
+  }
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+  }
+}

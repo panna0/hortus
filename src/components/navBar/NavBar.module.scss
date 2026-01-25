@@ -1,3 +1,50 @@
+// @use "./../../styles/_mixin.scss" as *;
+// @use "./../../styles/_variables.scss" as *; 
+// @use "./../../styles/_functions.scss" as *;
+
+// .header {
+//   @include horizontal-flex;
+//   justify-content: space-between;
+//   width: 90vw;
+//   border: 1px solid color("secondary");
+//   border-radius: 0.5rem;
+//   padding: 5px;
+//   position: fixed;
+//   top: 3rem;             
+//   z-index: 11;
+//   pointer-events: auto;
+
+//   h3 {
+//     color: color("secondary");
+//     margin-left: 5px;
+//     font-weight: 600;
+//   }
+// }
+
+
+
+// .logo {
+//     cursor: pointer;
+//     @include horizontal-flex;
+//     align-items: baseline;
+// }
+
+// .logoIcon{
+//     fill: color( "secondary");
+// }
+
+// .linkContainer{
+//     @include horizontal-flex;
+//     justify-content: space-around;
+//     gap: 150px;
+//     margin-right: 10%;
+//     h4{
+//         color: color("secondary");
+//         cursor: pointer;
+//         font-weight: 500
+//     }
+// }
+
 @use "./../../styles/_mixin.scss" as *;
 @use "./../../styles/_variables.scss" as *; 
 @use "./../../styles/_functions.scss" as *;
@@ -10,7 +57,9 @@
   border-radius: 0.5rem;
   padding: 5px;
   position: fixed;
-  top: 3rem;             
+  top: 3rem;            
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 11;
   pointer-events: auto;
 
@@ -35,12 +84,141 @@
 
 .linkContainer{
     @include horizontal-flex;
-    justify-content: space-around;
-    gap: 150px;
-    margin-right: 10%;
+    justify-content: flex-end;
+    gap: 2rem;
+    margin-right: 0;
     h4{
         color: color("secondary");
         cursor: pointer;
-        font-weight: 500
+        font-weight: 500;
     }
+}
+
+/* Hamburger toggle */
+.menuToggle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 44px; /* tappable target */
+  height: 40px;
+  border: 1px solid color("secondary");
+  border-radius: 10px;
+  background: rgba(255,255,255,0.08);
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+
+  &:hover { background: rgba(255,255,255,0.12); }
+  &:focus-visible { outline: 2px solid color("secondary"); outline-offset: 2px; }
+
+  .bar {
+    display: block;
+    
+    width: 22px;
+    height: 2px;
+    background: color("secondary");
+    margin: 4px 0;
+    border-radius: 2px;
+    transition: transform 0.24s ease, opacity 0.24s ease;
+  }
+}
+
+.open {
+  .bar:nth-child(1) { transform: translateY(8px) translateX(-7px)rotate(45deg); }
+  .bar:nth-child(2) { opacity: 0; }
+  .bar:nth-child(3) { transform: translateY(-12px) translateX(7px) rotate(-45deg); }
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .header {
+    width: 94vw;
+    top: 1.5rem;
+    padding: 8px 10px;
+  }
+
+  .linkContainer {
+    display: none;
+  }
+
+  .logo h3 {
+    font-size: 1rem;
+  }
+
+  .linkContainer h4 {
+    font-size: 0.95rem;
+  }
+
+  .menuToggle {
+    display: inline-flex;
+  }
+}
+
+@media (max-width: 600px) {
+  .header {
+    width: 95vw;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .linkContainer {
+    display: none;
+  }
+
+  .logo {
+    justify-content: space-between;
+  }
+}
+
+@media (min-width: 1200px) {
+  .header {
+    width: 80vw;
+    padding: 10px 14px;
+    top: 2.5rem;
+  }
+
+  .linkContainer {
+    gap: 3rem;
+  }
+
+  .logo h3 {
+    font-size: 1.2rem;
+  }
+
+  .linkContainer h4 {
+    font-size: 1.1rem;
+  }
+}
+
+/* Mobile dropdown menu */
+.mobileMenu {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(94vw, 520px);
+  max-height: 60vh;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  top: calc(1.5rem + 56px);
+  background: rgba(100, 100, 80, 0.354);
+  border: 2px solid color("secondary");
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 12;
+
+  a h4 {
+    color: color("secondary");
+    font-weight: 600;
+  }
+}
+
+@media (max-width: 600px) {
+  .mobileMenu {
+    width: min(95vw,200px);
+    top: calc(1.5rem + 60px);
+  }
 }
