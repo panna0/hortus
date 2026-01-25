@@ -162,6 +162,7 @@ import CardIcon2 from "../../public/cardIcon2.svg";
 import CardIcon3 from "../../public/cardIcon3.svg";
 import HortusChat from "../components/chat/HortusChat.jsx"
 import Button from "../components/button/Button.jsx";
+import Footer from "../components/footer/Footer.jsx";
 
 // Import sfondi
 import bg1 from '../../public/grassBackground.png';
@@ -200,8 +201,8 @@ const LandingPage = () => {
   }
 
   const textMap = {
-    'Calma': {title1: 'LET\'S GET', title2: 'GROWING!', quote: 'To plant a garden is to believe in tomorrow.', author: 'Audrey Hepburn'},
-    'Rabbia': {title1: 'ROOTED ID', title2: 'FURY!', quote: 'To plant a garden is to wage war against the earth.', author: 'Audrey Hepburn'},
+    'Calma': {title1: 'LET\'S GET', title2: 'GROWING', quote: 'To plant a garden is to believe in tomorrow.', author: 'Audrey Hepburn'},
+    'Rabbia': {title1: 'ROOTED ID', title2: 'FURY', quote: 'To plant a garden is to wage war against the earth.', author: 'Audrey Hepburn'},
     'Tristezza': {title1: 'WILTING IN THE ', title2: 'RAIN', quote: 'To plant a garden is to bury a dream in the dirt.', author: 'Audrey Hepburn'},
     'Angoscia': {title1: 'CAUGHT IN THE', title2: 'THORNS', quote: 'To plant a garden is to fear what will grow from the dark.', author: 'Audrey Hepburn'},
   };
@@ -312,7 +313,7 @@ const LandingPage = () => {
           </form>
         </div>
       </div>
-
+      <Footer colors={colors} className={style.footer}/>
     </div>
   );
 }

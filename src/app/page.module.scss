@@ -554,3 +554,19 @@
     max-width: 100%;
   }
 }
+
+
+
+.footer {
+  width: 100vw;
+  position: absolute;
+  top: 330vh;
+  transform: translateY(-10vh);
+  z-index: 7;
+  padding: 4rem 0 0 0;
+
+  @media (max-width: 768px) {
+    transform: translateY(-80vh);
+    padding: 3rem 0 0 0;
+  }
+}
