@@ -1,32 +1,25 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+// Aggiungi questo import in alto se non c'è
+import type { NextConfig } from "next";
 
-  
- 
-  webpack(config, { isServer }) { 
-    const fileLoaderRule = config.module.rules.find((rule) => rule.test?.test?.('.svg'));
+const nextConfig: NextConfig = {
+  webpack(config, { isServer }) {
+    // Trova la regola esistente per gli SVG
+    const fileLoaderRule = config.module.rules.find((rule: any) =>
+      rule.test?.test?.('.svg')
+    );
+
     if (fileLoaderRule) {
-        fileLoaderRule.exclude = /\.svg$/i;
+      fileLoaderRule.exclude = /\.svg$/i;
     }
+
+    // Aggiungi le tue regole personalizzate qui...
     config.module.rules.push({
       test: /\.svg$/i,
-      issuer: /\.[jt]sx?$/,
-      use: [{ loader: '@svgr/webpack', options: { icon: true } }],
+      use: ['@svgr/webpack'],
     });
-    return config;
-  },
 
- 
-  turbopack: {
-    rules: {
-     
-      '*.svg': {
-        loaders: ['@svgr/webpack'],
-        as: '*.js', 
-      },
-    },
-    
+    return config;
   },
 };
 
-module.exports = nextConfig;
+export default nextConfig;
