@@ -521,10 +521,11 @@
 }
 
 .newsletterForm {
-  @include horizontal-flex;
+  @include vertical-flex;
   gap: 1rem;
   width: 100%;
   justify-content: center;
+  
 
   @media (max-width: 768px) {
     flex-direction: column;

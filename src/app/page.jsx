@@ -149,6 +149,7 @@
 
 'use client';
 import { useEffect } from "react";
+import { useState } from "react";
 import style from "./page.module.scss";
 import { useHortus } from "../context/HortusContext.jsx";
 
@@ -212,11 +213,37 @@ const LandingPage = () => {
   const colors = colorsMap[news] || colorsMap['Calma'];
   const texts = textMap[news] || textMap['Calma'];
 
+
+  const [email, setEmail] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleNewsletterSubmit = async () => {
+    if (!email) return alert("L'email è obbligatoria");
+    
+    setSubmitting(true);
+    try {
+      await subscribeToNewsletter({ email, firstName, lastName });
+      alert("Iscrizione avvenuta con successo!");
+      // Reset dei campi
+      setEmail('');
+      setFirstName('');
+      setLastName('');
+    } catch (error) {
+      alert("Errore durante l'invio. Riprova più tardi.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   // Debug per vedere cosa arriva dal server
   useEffect(() => {
     if (!loading) {
       console.log("Emozione rilevata:", news);
     }
+
+
   }, [news, loading]);
 
   if (loading) {
@@ -302,13 +329,37 @@ const LandingPage = () => {
           </p>
           <form className={style.newsletterForm} onSubmit={(e) => e.preventDefault()}>
             <input 
+              type="text" 
+              placeholder="Il tuo nome" 
+              className={style.newsletterInput}
+              value={firstName} // Stato
+              onChange={(e) => setFirstName(e.target.value)} // Update
+              style={{backgroundColor: colors['lightGround'], color: colors['secondary'], borderColor: colors['lightGround2']}}
+            />
+            <input 
+              type="text" 
+              placeholder="Il tuo cognome" 
+              className={style.newsletterInput}
+              value={lastName} // Stato
+              onChange={(e) => setLastName(e.target.value)} // Update
+              style={{backgroundColor: colors['lightGround'], color: colors['secondary'], borderColor: colors['lightGround2']}}
+            />
+            <input 
               type="email" 
               placeholder="La tua email" 
               className={style.newsletterInput}
+              value={email} // Stato
+              onChange={(e) => setEmail(e.target.value)} // Update
               style={{backgroundColor: colors['lightGround'], color: colors['secondary'], borderColor: colors['lightGround2']}}
             />
-            <Button color="secondary" size="small" action={() => console.log('Iscritto!')} colors={colors}>
-              Iscriviti
+            <Button 
+              color="secondary" 
+              size="small" 
+              action={handleNewsletterSubmit} // Azione aggiornata
+              colors={colors}
+              disabled={submitting}
+            >
+              {submitting ? 'Caricamento...' : 'Iscriviti'}
             </Button>
           </form>
         </div>
